@@ -10,7 +10,8 @@ Call your theorem andImpEquiv.
 
 
 -- ANSWER
-
+theorem andImpEquiv {X Y : Prop} (h : X ∧ Y) : X ↔ Y :=
+⟨λ _ => (h : X ∧ Y).right, λ _ => (h : X ∧ Y).left⟩
 
 /- @@@
 #2: Give the proof in #1 in English. To do this,
@@ -27,6 +28,11 @@ context, the conclusion must be true as well. So
 assume P ∧ Q is true. The conclusion to be proved
 is an equivalence. To prove an equivalence we need
 to prove both ...
+
+ANSWER
+To prove P ∧ Q → (P ↔ Q), assume P ∧ Q. From P ∧ Q we get proves of P and Q
+Then P → Q we use the hp prove of P and can do it the other way too therefore P ↔ Q.
+
 @@@ -/
 
 
@@ -48,6 +54,11 @@ case (here involving X and Y) of the general claim.
 @@@ -/
 
 -- Answer
+axiom X : Prop
+axiom Y : Prop
+axiom h : X ∧ Y
+
+#check andImpEquiv h
 
 
 
@@ -93,13 +104,17 @@ definition.
 @@@ -/
 
 -- ANSWER
-
+theorem exFalsoK {K : Prop} : False → K
+| f => False.elim f
 
 /- @@@
 Why is it safe to accept tihs definition? What do we
 know that's special about *exFalsoK* that makes it ok?
 
 ANSWER:
+It's safe because False has no proofs.
+That means the function exFalsoK is never applied to a real argument basiclly
+saying if the impossible were true, then anything at all would follow.
 
 
 @@@ -/
@@ -112,14 +127,22 @@ P implies Q.
 @@@-/
 
 -- ANSWER
-
+theorem false_and_imp' {P Q : Prop} (h : False ∧ P) : Q :=
+let ⟨f, _⟩ := h; False.elim f
 
 /- @@@
 Write a short paragraph stating the proposition to be
 proved and the proof of it -- in English.
+
+ANSWER
+We prove the statement “if False ∧ P then Q” for arbitrary
+propositions P and Q. Assume False ∧ P. By elim
+we obtain a proof f of False. From f : False we may apply the principle
+False.elim (ex falso quodlibet) to produce a proof of any proposition,
+in particular Q. Thus False ∧ P implies Q.
 @@@ -/
 
--- ANSWER
+
 
 
 /- @@@
@@ -129,3 +152,6 @@ Give both formal and English (natural language) proofs.
 
 
 -- ANSWER
+theorem false_implies_false' (f : False) : False := f
+--Assume a proof f of False. Then f itself is a proof of False;
+--so from the assumption we immediately return the same f
