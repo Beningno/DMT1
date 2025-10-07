@@ -1,4 +1,14 @@
 /- @@@
+To prepare for this homework (1) be sure you
+have read and understood the class materials
+through 05_or.lean, corresponding to the "Or"
+section in the online notes. (2) Refer to the
+inference rules cheat sheet linked at the bottom
+of the web site.
+@@@ -/
+
+
+/- @@@
 #1. Suppose P and Q are any propositions.
 
 #1.A: State and prove the conjecture that,
@@ -14,12 +24,13 @@ theorem andImpEquiv {X Y : Prop} (h : X ∧ Y) : X ↔ Y :=
 ⟨λ _ => (h : X ∧ Y).right, λ _ => (h : X ∧ Y).left⟩
 
 /- @@@
-#2: Give the proof in #1 in English. To do this,
+#2: Give the proof for #1 in English. To do this,
 just explain clearly what assumptions you make or
 use at each step and what inference rules you use
 to make progress at each step. We get you started:
 
--- ANSWER
+-- PARTIAL ANSWER, YOU COMPLETE IT
+
 Proof: To prove this *implication* we'll use the
 introduction rule for →. So *assume* the premise
 is true. What remains to be proved is that, in this
@@ -47,10 +58,11 @@ Once you've done that, in a #check command, apply
 the general theorem we just proved to prove that X
 is equivalent to Y.
 
-Do not just copy the proof. The whole point is to
-reinforce the idea that one you've proved a theorem
-you can use it (by applying it) to prove any special
-case (here involving X and Y) of the general claim.
+Use this example to help you see that once you've
+proved a theorem (as in #1 above) you can use it by
+applying it to prove any special case, here with X
+and Y in place of the formal parameters in the
+statement of the theorem itself.
 @@@ -/
 
 -- Answer
