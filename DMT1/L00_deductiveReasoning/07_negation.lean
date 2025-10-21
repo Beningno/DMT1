@@ -76,3 +76,36 @@ should we be able to prove about *Wrong*?
 
 /- @@@
 @@@ -/
+
+-- if i have a funciton from x to y and i have y what can i do
+-- apply the funciton
+
+-- assume P is any prop and α is any type, and we assume that we have a prove of 
+def foo { P : Prop} {α : Type} : (P → False) → P → α :=
+(
+  fun pf => 
+  (
+    fun (p : P) => nomatch (pf p)
+  )
+)
+
+def bar { P : Prop} {α : Type} : ¬P → P → α
+| np, p => nomatch (np p)
+
+def noCrontra {P : Prop} : ¬ (P ∧ ¬ P)
+|h => 
+(
+  let p := h.left
+  let np := h.right
+  (np p)
+)
+
+--theorem porqValid {P :Prop} : p ∨ ¬ P :=
+#check Classical.em 
+
+theorem notDistribOverAnd {P Q : Prop} : ¬ (P ∧ Q) → (¬P ∨ ¬Q)
+| h => ( Or.inl (fun (p : P) => ))
+
+theorem notDistribOverAnd' {P Q : Prop} :  (¬P ∨ ¬Q) → ¬ (P ∧ Q)
+| (Or.inl np) => _
+| (Or.inr nq) => _
