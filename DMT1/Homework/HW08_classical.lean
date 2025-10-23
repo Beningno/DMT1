@@ -54,11 +54,11 @@ is required to construct a proof of ¬P ∨ ¬Q.
 Uncomment the following code to explore it.
 @@@ -/
 
--- example { P Q : Prop } : ¬(P ∧ Q) → ¬P ∨ ¬ Q :=
--- (
---   fun (h : ¬(P ∧ Q)) =>
---     Or.inl _
--- )
+example { P Q : Prop } : ¬(P ∧ Q) → ¬P ∨ ¬ Q :=
+(
+   fun (h : ¬(P ∧ Q)) =>
+     Or.inl sorry
+ )
 
 
 /- @@@
@@ -130,6 +130,9 @@ for Not over And*
 
 ### In class
 -/
+example : ∀ P : Prop, P ∨ ¬ P :=
+fun p =>
+Or.inr _
 
 axiom em : ∀ P : Prop, P ∨ ¬P
 
@@ -204,7 +207,55 @@ able to. Understand where you got stuck. Leave
 you incomplete proof commented out with a quick
 comment explaining exactly why you get stuck.
 
+-- example : ∀ P : Prop, ¬¬P → P :=
+-- fun P (nnP : ¬¬P) =>
+--   by
+--     admit
+we can't try case analysis on `P` (P ∨ ¬P), because that requires
+the excluded middle axiom `em : ∀ P, P ∨ ¬P`
+-- Without `em` there is no way to obtain either a proof of `P`
+-- or a proof of `¬P` from `nnP` alone. So the construction gets stuck here.
+
+
+
 #2. Provide that if you accept (assume) the axiom
 of the excluded middle, then negation elimination
 is valid.
 @@@ -/
+
+
+example : (∀ P : Prop, P ∨ ¬P) → (∀ P : Prop, ¬¬P → P) :=
+-- law of excluded middle implies that double negation elimination holds
+fun em => 
+  fun P => 
+  fun nnP =>
+    match em P with
+    | Or.inl p => p
+    | Or.inr np => False.elim (nnP np)
+
+
+example : ∀(P :Prop), (¬P) ↔ (P → False) :=
+  fun (P: Prop) =>
+  (
+    Iff.intro
+    (
+      fun np =>
+        fun p => 
+          (np p)
+          -- important to prove ¬p, show that p implies false, 
+          -- show that its impossible/absured/controdiction for P to be true
+          --Prove P → False, assume p show false
+          --proof by Negation
+
+
+          --contradiction assume  false prove it wrong 
+          -- negation assume true prove false
+    )
+    (
+      fun pimpf => sorry
+    )
+  )
+    
+
+
+
